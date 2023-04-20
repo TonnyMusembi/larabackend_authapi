@@ -6,13 +6,17 @@ class Task extends Model
 {
     use HasFactory;
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class)->withPivot(['status_id', 'due_date', 'remarks']);
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class)->withPivot(['status_id', 'due_date', 'remarks']);
+    // }
 
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
-    }
+    // public function status()
+    // {
+    //     return $this->belongsTo(Status::class);
+    // }
+
+     protected $fillable = [
+        'name', 'description','status_id','due_date'
+    ];
 }
