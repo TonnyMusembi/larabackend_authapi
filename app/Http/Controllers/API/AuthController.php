@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,6 +39,14 @@ class AuthController extends Controller
     {
         try {
 
+//             if (Auth::attempt(['email_adress' => $email_adress, 'password' => $password])) {
+//     $user = Auth::user();
+//     $token = $user->createToken('token-name')->accessToken;
+
+//     return response()->json(['token' => $token]);
+// } else {
+//     return response()->json(['error' => 'Unauthenticated'], 401);
+// }
             $user = User::where('email_adress', '=', $request->input('email_adress'))->firstOrFail();
 
 

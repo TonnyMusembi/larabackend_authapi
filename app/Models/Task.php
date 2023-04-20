@@ -1,22 +1,16 @@
 <?php
+
+namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    use HasFactory;
+    protected $fillable =[
 
-    // public function users()
-    // {
-    //     return $this->belongsToMany(User::class)->withPivot(['status_id', 'due_date', 'remarks']);
-    // }
+        'name','description','due_date','status_id'
 
-    // public function status()
-    // {
-    //     return $this->belongsTo(Status::class);
-    // }
-
-     protected $fillable = [
-        'name', 'description','status_id','due_date'
     ];
+    use HasFactory;
 }
