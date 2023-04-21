@@ -25,7 +25,7 @@ class AuthController extends Controller
 
             $token = $user->createToken('user_token')->plainTextToken;
 
-            return response()->json([ 'user' => $user, 'token' => $token ], 200);
+            return response()->json([ 'user' => $user, 'token' => $token ], 201);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -33,31 +33,33 @@ class AuthController extends Controller
                 'message' => 'Something went wrong in AuthController.register'
             ]);
         }
+
+
+    //     $fields = $request->validate([
+
+    //         'email_adress' => $request->input('email_adress'),
+    //         'password' => Hash::make($request->input('password'))
+    //     ]);
+
+    //     $user = User::create([
+
+    //         'email_adress' => $fields['email_adress'],
+    //         'password' => bcrypt($fields['password'])
+    //     ]);
+
+    //     $token = $user->createToken('myapptoken')->plainTextToken;
+
+    //     $response = [
+    //         'user' => $user,
+    //         'token' => $token
+    //     ];
+
+    //     return response($response, 201);
     }
 
     public function login(Request $request)
     {
-    //     try {
 
-
-    //         $user = User::where('email_adress', '=', $request->input('email_adress'))->firstOrFail();
-
-
-    //         if (Hash::check($request->input('password'), $user->password)) {
-    //             $token = $user->createToken('user_token')->plainTextToken;
-
-    //             return response()->json([ 'user' => $user, 'token' => $token ], 200);
-    //         }
-
-    //         return response()->json([ 'error' => 'Something went wrong in login' ]);
-
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'error' => $e->getMessage(),
-    //             'message' => 'Something went wrong in AuthController.login'
-    //         ]);
-    //     }
-    // }
    $fields = $request->validate([
             'email_adress' => 'required|string',
             'password' => 'required|string'

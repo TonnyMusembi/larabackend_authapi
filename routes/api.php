@@ -26,7 +26,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 
-
+  Route::post('tasks', [TasksController::class, 'store']);
 
 Route::get('tasks', [TasksController::class, 'index']);
   Route::get('/users', [UserController::class, 'index']);
@@ -35,7 +35,7 @@ Route::get('tasks', [TasksController::class, 'index']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/users/{id}', [UserController::class, 'update']);
     Route::post('/users', [UserController::class, 'store']);
-    Route::post('tasks', [TasksController::class, 'store']);
+
 });
 
 
