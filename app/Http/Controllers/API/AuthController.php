@@ -39,14 +39,7 @@ class AuthController extends Controller
     {
         try {
 
-//             if (Auth::attempt(['email_adress' => $email_adress, 'password' => $password])) {
-//     $user = Auth::user();
-//     $token = $user->createToken('token-name')->accessToken;
 
-//     return response()->json(['token' => $token]);
-// } else {
-//     return response()->json(['error' => 'Unauthenticated'], 401);
-// }
             $user = User::where('email_adress', '=', $request->input('email_adress'))->firstOrFail();
 
 
@@ -65,6 +58,22 @@ class AuthController extends Controller
             ]);
         }
     }
+    //  public function login(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'email_adress' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     if (Auth::attempt($credentials)) {
+    //         return response()->json([
+    //             'user' => auth()->user(),
+    //             'token' => auth()->user()->createToken('authToken')->plainTextToken
+    //         ]);
+    //     }
+
+    //     return response()->json(['message' => 'Invalid login credentials'], 401);
+    // }
 
     public function logout(Request $request)
     {
