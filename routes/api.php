@@ -19,10 +19,28 @@ use App\Http\Controllers\UserController;
 |
 */
 
+
+// public apis
 Route::post('register', [AuthController::class, 'register']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
+
+
+
+Route::post('tasks', [TasksController::class, 'store']);
+Route::get('tasks', [TasksController::class, 'index']);
+  Route::get('/users', [UserController::class, 'index']);
+
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::post('/users', [UserController::class, 'store']);
+
+
+});
+
+
 
 
 
@@ -31,11 +49,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 });
 
-Route::post('tasks', [TasksController::class, 'store']);
-Route::get('tasks', [TasksController::class, 'index']);
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/users', [UserController::class, 'store']);
-Route::put('/users/{id}', [UserController::class, 'update']);
 
 
 

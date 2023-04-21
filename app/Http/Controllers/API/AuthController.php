@@ -37,45 +37,53 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        try {
+    //     try {
 
 
-            $user = User::where('email_adress', '=', $request->input('email_adress'))->firstOrFail();
+    //         $user = User::where('email_adress', '=', $request->input('email_adress'))->firstOrFail();
 
 
-            if (Hash::check($request->input('password'), $user->password)) {
-                $token = $user->createToken('user_token')->plainTextToken;
+    //         if (Hash::check($request->input('password'), $user->password)) {
+    //             $token = $user->createToken('user_token')->plainTextToken;
 
-                return response()->json([ 'user' => $user, 'token' => $token ], 200);
-            }
+    //             return response()->json([ 'user' => $user, 'token' => $token ], 200);
+    //         }
 
-            return response()->json([ 'error' => 'Something went wrong in login' ]);
+    //         return response()->json([ 'error' => 'Something went wrong in login' ]);
 
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'message' => 'Something went wrong in AuthController.login'
-            ]);
-        }
-    }
-    //  public function login(Request $request)
-    // {
-    //     $credentials = $request->validate([
-    //         'email_adress' => 'required|email',
-    //         'password' => 'required',
-    //     ]);
-
-    //     if (Auth::attempt($credentials)) {
+    //     } catch (\Exception $e) {
     //         return response()->json([
-    //             'user' => auth()->user(),
-    //             'token' => auth()->user()->createToken('authToken')->plainTextToken
+    //             'error' => $e->getMessage(),
+    //             'message' => 'Something went wrong in AuthController.login'
     //         ]);
     //     }
-
-    //     return response()->json(['message' => 'Invalid login credentials'], 401);
     // }
+   $fields = $request->validate([
+            'email_adress' => 'required|string',
+            'password' => 'required|string'
+        ]);
+
+        // Check email
+        $user = User::where('email_adress', $fields['email_adress'])->first();
+
+        // Check password
+        if(!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Bad creds'
+            ], 401);
+        }
+
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);}
 
     public function logout(Request $request)
+
     {
         try {
 
